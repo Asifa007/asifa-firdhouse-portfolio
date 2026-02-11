@@ -1,7 +1,14 @@
 import { useState, FormEvent } from "react";
 import AnimatedSection from "./AnimatedSection";
 import { Button } from "./ui/button";
-import { Mail, Download, Github, Linkedin, Send, CheckCircle } from "lucide-react";
+import {
+  Mail,
+  Download,
+  Github,
+  Linkedin,
+  Send,
+  CheckCircle,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const isValidEmail = (email: string) =>
@@ -13,10 +20,12 @@ const Contact = () => {
     email: "",
     message: "",
   });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     if (
       !formData.name.trim() ||
       !formData.email.trim() ||
@@ -25,12 +34,15 @@ const Contact = () => {
       toast.error("Please fill in all fields.");
       return;
     }
+
     if (!isValidEmail(formData.email)) {
       toast.error("Please enter a valid email address.");
       return;
     }
+
     setIsSubmitted(true);
     toast.success("Message sent! I'll get back to you soon.");
+
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", email: "", message: "" });
@@ -45,22 +57,35 @@ const Contact = () => {
           <p className="text-sm text-primary font-display tracking-widest uppercase mb-3">
             Get In Touch
           </p>
+
           <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">
             Let's Work Together
           </h2>
+
           <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">
             I'm always open to new opportunities and interesting projects. Let's
             create something amazing.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Hire Me */}
             <Button variant="glow" size="lg" asChild>
-              <a href="mailto:contact@asifafirdhouse.dev">
+              <a
+                href="mailto:contact@asifafirdhouse.dev"
+                className="flex items-center gap-2"
+              >
                 <Mail className="w-4 h-4" />
                 Hire Me
               </a>
             </Button>
+
+            {/* Download Resume */}
             <Button variant="heroOutline" size="lg" asChild>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a
+                href="/Asifa_Firdhouse_Resume.pdf"
+                download
+                className="flex items-center gap-2"
+              >
                 <Download className="w-4 h-4" />
                 Download Resume
               </a>
@@ -84,6 +109,7 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200"
               maxLength={100}
             />
+
             <input
               type="email"
               placeholder="Your Email"
@@ -94,6 +120,7 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200"
               maxLength={255}
             />
+
             <textarea
               placeholder="Your Message"
               rows={5}
@@ -104,6 +131,7 @@ const Contact = () => {
               className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200 resize-none"
               maxLength={1000}
             />
+
             <Button
               type="submit"
               variant="glow"
@@ -137,6 +165,7 @@ const Contact = () => {
           >
             <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
           </a>
+
           <a
             href="https://github.com/Asifa007"
             target="_blank"

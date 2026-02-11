@@ -35,6 +35,12 @@ const projects = [
       "AI-powered attendance system using face recognition technology for automated tracking.",
     tags: ["AI", "OpenCV", "Python"],
   },
+  {
+    title: "Payroll Management System",
+    description:
+      "Intelligent payroll management system designed to streamline employee salary calculations, tax deductions, attendance integration, and real-time payslip generation.",
+    tags: ["React.js", "Node.js", "Express", "MongoDB"],
+  },
 ];
 
 interface ProjectCardProps {
