@@ -1,184 +1,95 @@
-import { useState, FormEvent } from "react";
-import AnimatedSection from "./AnimatedSection";
-import { Button } from "./ui/button";
-import {
-  Mail,
-  Download,
-  Github,
-  Linkedin,
-  Send,
-  CheckCircle,
-} from "lucide-react";
-import { toast } from "sonner";
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
-const isValidEmail = (email: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+export default function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: FormEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !formData.name.trim() ||
-      !formData.email.trim() ||
-      !formData.message.trim()
-    ) {
-      toast.error("Please fill in all fields.");
-      return;
-    }
+    if (!form.current) return;
 
-    if (!isValidEmail(formData.email)) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
+    setLoading(true);
+    setSuccess("");
+    setError("");
 
-    setIsSubmitted(true);
-    toast.success("Message sent! I'll get back to you soon.");
-
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 3000);
+    emailjs
+      .sendForm(
+        "service_wdtm858",
+        "template_d9p4xb7",
+        form.current,
+        "2dYnu4s_Po5Iup9-T"
+      )
+      .then(
+        () => {
+          setSuccess("Message sent successfully! 🚀");
+          setLoading(false);
+          form.current?.reset();
+        },
+        () => {
+          setError("Something went wrong. Please try again.");
+          setLoading(false);
+        }
+      );
   };
 
   return (
-    <section id="contact" className="relative py-24 md:py-32">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-        {/* CTA */}
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-sm text-primary font-display tracking-widest uppercase mb-3">
-            Get In Touch
-          </p>
+    <section className="py-20 px-6 text-white">
+      <div className="max-w-2xl mx-auto">
 
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">
-            Let's Work Together
-          </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">
+          Contact Me
+        </h2>
 
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">
-            I'm always open to new opportunities and interesting projects. Let's
-            create something amazing.
-          </p>
+        <form
+          ref={form}
+          onSubmit={sendEmail}
+          className="space-y-6"
+        >
+          <input
+            type="text"
+            name="from_name"
+            placeholder="Your Name"
+            required
+            className="w-full p-4 rounded-lg bg-transparent border border-gray-600 focus:outline-none focus:border-cyan-400"
+          />
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {/* Hire Me */}
-            <Button variant="glow" size="lg" asChild>
-              <a
-                href="mailto:contact@asifafirdhouse.dev"
-                className="flex items-center gap-2"
-              >
-                <Mail className="w-4 h-4" />
-                Hire Me
-              </a>
-            </Button>
+          <input
+            type="email"
+            name="from_email"
+            placeholder="Your Email"
+            required
+            className="w-full p-4 rounded-lg bg-transparent border border-gray-600 focus:outline-none focus:border-cyan-400"
+          />
 
-            {/* Download Resume */}
-            <Button variant="heroOutline" size="lg" asChild>
-              <a
-                href="/Asifa_Firdhouse_Resume.pdf"
-                download
-                className="flex items-center gap-2"
-              >
-                <Download className="w-4 h-4" />
-                Download Resume
-              </a>
-            </Button>
-          </div>
-        </AnimatedSection>
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            required
+            rows={5}
+            className="w-full p-4 rounded-lg bg-transparent border border-gray-600 focus:outline-none focus:border-cyan-400"
+          ></textarea>
 
-        {/* Form */}
-        <AnimatedSection delay={0.1}>
-          <form
-            onSubmit={handleSubmit}
-            className="max-w-lg mx-auto space-y-5"
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300 py-4 rounded-lg font-semibold"
           >
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200"
-              maxLength={100}
-            />
+            {loading ? "Sending..." : "Send Message"}
+          </button>
 
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200"
-              maxLength={255}
-            />
+          {success && (
+            <p className="text-green-400 text-center">{success}</p>
+          )}
 
-            <textarea
-              placeholder="Your Message"
-              rows={5}
-              value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
-              className="w-full px-4 py-3 rounded-lg bg-card border border-border/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/25 transition-all duration-200 resize-none"
-              maxLength={1000}
-            />
-
-            <Button
-              type="submit"
-              variant="glow"
-              size="lg"
-              className="w-full"
-              disabled={isSubmitted}
-            >
-              {isSubmitted ? (
-                <>
-                  <CheckCircle className="w-4 h-4" />
-                  Sent!
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  Send Message
-                </>
-              )}
-            </Button>
-          </form>
-        </AnimatedSection>
-
-        {/* Social Links */}
-        <AnimatedSection delay={0.2} className="flex justify-center gap-6 mt-16">
-          <a
-            href="https://www.linkedin.com/in/asifafirdhouse"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group p-3.5 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover-glow transition-all duration-200"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
-          </a>
-
-          <a
-            href="https://github.com/Asifa007"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group p-3.5 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover-glow transition-all duration-200"
-            aria-label="GitHub"
-          >
-            <Github className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-200" />
-          </a>
-        </AnimatedSection>
+          {error && (
+            <p className="text-red-400 text-center">{error}</p>
+          )}
+        </form>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}
