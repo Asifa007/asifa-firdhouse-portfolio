@@ -11,50 +11,84 @@ const Hero = () => {
     >
       <Scene3D />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-sm md:text-base text-primary font-display tracking-widest uppercase mb-4"
-        >
-          AI & ML Developer
-        </motion.p>
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-display font-bold tracking-tight mb-6"
-        >
-          <span className="text-foreground">Hi, I'm </span>
-          <span className="text-primary glow-text">Asifa Firdhouse</span>
-        </motion.h1>
+          {/* Profile Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative shrink-0"
+          >
+            <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl scale-110" />
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.25 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
-        >
-          Crafting intelligent solutions with Python, MERN Stack, and Machine Learning.
-        </motion.p>
+            <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full p-1 bg-primary/30">
+              <img
+                src="/profile.jpeg"
+                alt="Asifa Firdhouse"
+                className="w-full h-full rounded-full object-cover border-2 border-primary/40"
+              />
+            </div>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Button variant="glow" size="lg" asChild>
-            <a href="#contact">Hire Me</a>
-          </Button>
-          <Button variant="heroOutline" size="lg" asChild>
-            <a href="#projects">View Projects</a>
-          </Button>
-        </motion.div>
+          {/* Hero Content */}
+          <div className="text-center md:text-left max-w-3xl">
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+              className="text-sm md:text-base text-primary font-display tracking-widest uppercase mb-4"
+            >
+              AI & ML Developer
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight mb-6"
+            >
+              <span className="text-foreground">Hi, I'm </span>
+              <span className="text-primary glow-text">
+                Asifa Firdhouse
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.35 }}
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
+            >
+              Building intelligent applications with Python, AI/ML,
+              Generative AI, and backend technologies.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+                delay: 0.5,
+              }}
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            >
+              <Button variant="glow" size="lg" asChild>
+                <a href="#contact">Let's Connect</a>
+              </Button>
+
+              <Button variant="heroOutline" size="lg" asChild>
+                <a href="#projects">View Projects</a>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -63,7 +97,11 @@ const Hero = () => {
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeInOut",
+          }}
         >
           <ArrowDown className="w-5 h-5 text-muted-foreground" />
         </motion.div>
