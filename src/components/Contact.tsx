@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { Mail, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Send, Download } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 export default function Contact() {
@@ -132,6 +132,19 @@ export default function Contact() {
                 </a>
 
               </div>
+
+              {/* Resume Download */}
+              <div className="mt-8 pt-6 border-t border-border/30">
+                <a
+                  href="/Asifa-Firdhouse-Resume.pdf"
+                  download
+                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-all duration-300"
+                >
+                  <Download className="w-4 h-4" />
+                  Download Resume
+                </a>
+              </div>
+
             </div>
           </AnimatedSection>
 
