@@ -12,10 +12,10 @@ const Hero = () => {
       <Scene3D />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 items-center gap-8 lg:gap-16 min-h-screen py-24">
+        <div className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4 lg:gap-12 py-24">
 
           {/* Hero Content */}
-          <div className="text-center md:text-left order-2 md:order-1">
+          <div className="w-full md:w-[58%] text-center md:text-left order-2 md:order-1">
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ const Hero = () => {
                 ease: "easeOut",
                 delay: 0.25,
               }}
-              className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto md:mx-0 mb-10"
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-10"
             >
               Building intelligent applications with Python, AI/ML,
               Generative AI, and backend technologies.
@@ -76,30 +76,32 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Profile Cutout */}
+          {/* Natural Portrait */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
               duration: 0.7,
               ease: "easeOut",
               delay: 0.15,
             }}
-            className="relative order-1 md:order-2 flex justify-center items-end"
+            className="relative w-full md:w-[42%] flex justify-center md:justify-end items-end order-1 md:order-2"
           >
-            {/* Soft cyan atmospheric glow */}
-            <div className="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-primary/10 blur-3xl" />
+            {/* Soft futuristic glow */}
+            <div className="absolute right-1/4 md:right-0 bottom-10 w-64 h-64 bg-primary/10 blur-3xl rounded-full" />
 
             <motion.img
-              src="/profile.jpeg"
+              src="/profile.png"
               alt="Asifa Firdhouse"
-              initial={{ scale: 0.96 }}
-              animate={{ scale: 1 }}
-              transition={{
-                duration: 0.8,
-                ease: "easeOut",
+              animate={{
+                y: [0, -6, 0],
               }}
-              className="relative z-10 w-auto h-[420px] sm:h-[480px] md:h-[540px] lg:h-[600px] max-w-full object-contain object-bottom drop-shadow-[0_0_30px_hsl(var(--primary)/0.18)]"
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative z-10 h-[380px] sm:h-[450px] md:h-[500px] lg:h-[570px] w-auto max-w-full object-contain object-bottom drop-shadow-[0_0_28px_hsl(var(--primary)/0.2)]"
             />
           </motion.div>
 
